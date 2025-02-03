@@ -59,7 +59,78 @@ def winner(board):
     """
     Returns the winner of the game, if there is one.
     """
-    raise NotImplementedError
+    xCount = 0
+    ocount = 0
+
+    for row in board:
+        xCount = row.count('X')
+        ocount = row.count('O')
+
+        if xCount == 3:
+            return X
+        elif ocount == 3:
+            return O
+
+    xCount = 0
+    ocount = 0
+    for i in range(3):
+        for j in range(3):
+            if board[j][i] == X:
+                xCount += 1
+            elif board[j][i] == O:
+                ocount += 1
+
+            if xCount == 3:
+                return X
+            elif ocount == 3:
+                return O
+        xCount =0
+        ocount=0    
+
+    xCount = 0
+    ocount = 0       
+
+    diagonal1 = [board[0][0],board[1][1],board[2][2]] 
+    diagonal2 = [board[0][2],board[1][1],board[2][0]] 
+    
+    xCount = diagonal1.count('X')
+    ocount = diagonal1.count('O')
+
+    if xCount == 3:
+        return X
+    elif ocount == 3:
+        return O
+    
+    xCount = 0
+    ocount = 0 
+
+    xCount = diagonal2.count('X')
+    ocount = diagonal2.count('O')
+
+    if xCount == 3:
+        return X
+    elif ocount == 3:
+        return O
+
+    xCount = 0
+    ocount= 0
+    return
+
+def terminal(board):
+    """
+    Returns True if game is over, False otherwise.
+    """
+    utilityVal = utility(board)
+    emptyCount = sum(row.count(EMPTY) for row in board)
+
+    if utilityVal == 1:
+        return True
+    elif utilityVal == -1:
+        return True
+    elif emptyCount == 0:
+        return True
+    else:
+        False
 
 
 def terminal(board):
