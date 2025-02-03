@@ -137,7 +137,17 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    utilityVal = utility(board)
+    emptyCount = sum(row.count(EMPTY) for row in board)
+
+    if utilityVal == 1:
+        return True
+    elif utilityVal == -1:
+        return True
+    elif emptyCount == 0:
+        return True
+    else:
+        False
 
 
 def utility(board):
