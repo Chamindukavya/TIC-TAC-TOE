@@ -181,4 +181,51 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+    possibleActions = actions(board)
+
+    copiedBoard = copy.deepcopy(board)
+    currentPlayer = player(board)
+
+    if currentPlayer == X:
+        v = float('-inf')
+        toBeAction = None
+        for action in possibleActions:
+            resultByAction = result(copiedBoard,action)
+            value = minValue(resultByAction)
+            if value > v:
+                v = value
+                toBeAction = action
+        
+        return toBeAction
+    else:
+        v = float('inf')
+        toBeAction = None
+        for action in possibleActions:
+            resultByAction = result(copiedBoard,action)
+            value = maxValue(resultByAction)
+            if value < v:
+                v = value
+                toBeAction = action
+
+        return toBeAction
+    # return possibleActions[0]
+    
+
+def maxValue(board):
+    if terminal(board):
+        return utility(board)
+    v = float('-inf')
+    for action in actions(board):
+        v = max(v, minValue(result(board, action))) 
+    return v    
+    
+
+def minValue(board):
+    if terminal(board):
+        return utility(board)
+    v = float('inf')
+    for action in actions(board):
+        v = min(v, maxValue(result(board, action))) 
+    return v
+
+
